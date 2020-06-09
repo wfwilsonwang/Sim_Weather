@@ -84,9 +84,9 @@ def findcity(cityA_input):
     # ------------------------------------------------------------
     # Get all the weather data of this city
     if countryA == 'China':
-        city_data = pd.read_excel('CN_weather2.xlsx', sheet_name = cityA)
+        city_data = CN_data[cityA]
     else:
-        city_data = pd.read_excel('US_weather3.xlsx', sheet_name = cityA)
+        city_data = US_data[cityA]
     # ------------------------------------------------------------
     #print('Your city A is', cityA, 'in', countryA)
     return city_data, countryA, min_distance, cityA
