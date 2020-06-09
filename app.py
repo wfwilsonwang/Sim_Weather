@@ -29,10 +29,8 @@ cities_list = list(pd.read_csv('cities_CNUS.csv')['cities'])
 #     return distance
 
 def get_coord(A):
-    if any(A in s for s in CN_cities_list):
-        A_coord = eval(CN_coord[CN_coord['asciiname'].str.contains(A)]['coord'].iloc[0])
-    elif any(A in s for s in US_cities_list):
-        A_coord = eval(US_coord[US_coord['city'].str.contains(A)].iloc[0,3])[0:2]
+    if any(A in s for s in cities_list):
+        A_coord = eval(All_coord[All_coord['cities'].str.contains(A)]['coord'].iloc[0])
     else:
         geolocator = Nominatim(user_agent="Get coordinates")
         geolocator = Nominatim(timeout = 10)
@@ -473,4 +471,4 @@ def update_output2(n_clicks, cityA_input):
 
 
 if __name__ == '__main__':
-    app.run_server(port = 4051)
+    app.run_server()
