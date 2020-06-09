@@ -177,7 +177,8 @@ def normalize_form(similarity_form):
 
 
 
-
+rblue = '#4169e1'
+mapbox_access_token = 'pk.eyJ1Ijoid2Z3aWxzb253YW5nIiwiYSI6ImNrYjQwcXJzeDBxNnUyeWxtZnlkaDF1OHoifQ.I6_PcA8uuq7kMuDh57hYJg'
 
 
 
