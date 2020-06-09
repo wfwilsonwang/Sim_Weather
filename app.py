@@ -250,26 +250,26 @@ app.layout = html.Div([
                    })],
             style = {'display': 'inline-block', 'height': 600, 'width': '100%'}),
     
-#     html.Div([
-#         dcc.Graph(id = 'avg-temp',  # fig2
-#                   style = {'width': '33%',  'display': 'inline-block'}),
-#         dcc.Graph(id = 'max-temp',  # fig3
-#                   style = {'width': '33%',  'display': 'inline-block'}),
-#         dcc.Graph(id = 'min-temp',  # fig4
-#                   style = {'width': '33%',  'display': 'inline-block'}),
-#         dcc.Graph(id = 'precipitation',  # fig5
-#                   style = {'width': '33%',  'display': 'inline-block'}),
-#         dcc.Graph(id = 'days-prec',  # fig6
-#                   style = {'width': '33%',  'display': 'inline-block'}),
-#         dcc.Graph(id = 'days-snow',  # fig7
-#                   style = {'width': '33%',  'display': 'inline-block'}),
+    html.Div([
+        dcc.Graph(id = 'avg-temp',  # fig2
+                  style = {'width': '33%',  'display': 'inline-block'}),
+        dcc.Graph(id = 'max-temp',  # fig3
+                  style = {'width': '33%',  'display': 'inline-block'}),
+        dcc.Graph(id = 'min-temp',  # fig4
+                  style = {'width': '33%',  'display': 'inline-block'}),
+        dcc.Graph(id = 'precipitation',  # fig5
+                  style = {'width': '33%',  'display': 'inline-block'}),
+        dcc.Graph(id = 'days-prec',  # fig6
+                  style = {'width': '33%',  'display': 'inline-block'}),
+        dcc.Graph(id = 'days-snow',  # fig7
+                  style = {'width': '33%',  'display': 'inline-block'}),
 #         dcc.Graph(id = 'days-storm',  # fig8
 #                   style = {'width': '33%',  'display': 'inline-block'}),
 #         dcc.Graph(id = 'days-fog',  # fig9
 #                   style = {'width': '33%',  'display': 'inline-block'}),
 #         dcc.Graph(id = 'days-frost',  # fig10
 #                   style = {'width': '33%',  'display': 'inline-block'}),    
-#     ])
+     ])
 ])
 
 @app.callback(
@@ -283,12 +283,12 @@ def update_output(cityA_input):
 @app.callback(
     [Output('find-result', 'children'),
      Output('two-city-map', 'figure'),
-#      Output('avg-temp', 'figure'),
-#      Output('max-temp', 'figure'),
-#      Output('min-temp', 'figure'),
-#      Output('precipitation', 'figure'),
-#      Output('days-prec', 'figure'),
-#      Output('days-snow', 'figure'),
+     Output('avg-temp', 'figure'),
+     Output('max-temp', 'figure'),
+     Output('min-temp', 'figure'),
+     Output('precipitation', 'figure'),
+     Output('days-prec', 'figure'),
+     Output('days-snow', 'figure'),
 #      Output('days-storm', 'figure'),
 #      Output('days-fog', 'figure'),
 #      Output('days-frost', 'figure')],
@@ -351,90 +351,90 @@ def update_output2(n_clicks, cityA_input):
     cityB_data = findcity(cityB_result)[0]
     
     
-#     # Average temperature
-#     fig2 = go.Figure()
-#     fig2.add_trace(go.Scatter(x = np.arange(1, 13), y = getdata(cityA_data, 1)['Mean'],
-#                     mode = 'lines+markers',
-#                     name = cityA))
-#     fig2.add_trace(go.Scatter(x = np.arange(1, 13), y = getdata(cityB_data, 1)['Mean'],
-#                     mode = 'lines+markers',
-#                     name = cityB_result))  
-#     fig2.update_layout(
-#         {'title': 'Average Temperature (°C) ',
-#          'xaxis': {'title': 'Month'},
-#          'yaxis': {'title': 'Temperature (°C)'}}
-#     )
+    # Average temperature
+    fig2 = go.Figure()
+    fig2.add_trace(go.Scatter(x = np.arange(1, 13), y = getdata(cityA_data, 1)['Mean'],
+                    mode = 'lines+markers',
+                    name = cityA))
+    fig2.add_trace(go.Scatter(x = np.arange(1, 13), y = getdata(cityB_data, 1)['Mean'],
+                    mode = 'lines+markers',
+                    name = cityB_result))  
+    fig2.update_layout(
+        {'title': 'Average Temperature (°C) ',
+         'xaxis': {'title': 'Month'},
+         'yaxis': {'title': 'Temperature (°C)'}}
+    )
     
-#     # Max temperature
-#     fig3 = go.Figure()
-#     fig3.add_trace(go.Scatter(x = np.arange(1, 13), y = getdata(cityA_data, 2)['Mean'],
-#                     mode = 'lines+markers',
-#                     name = cityA))
-#     fig3.add_trace(go.Scatter(x = np.arange(1, 13), y = getdata(cityB_data, 2)['Mean'],
-#                     mode = 'lines+markers',
-#                     name = cityB_result))  
-#     fig3.update_layout(
-#         {'title': 'Max Temperature (°C)',
-#          'xaxis': {'title': 'Month'},
-#          'yaxis': {'title': 'Temperature (°C)'}}
-#     )    
+    # Max temperature
+    fig3 = go.Figure()
+    fig3.add_trace(go.Scatter(x = np.arange(1, 13), y = getdata(cityA_data, 2)['Mean'],
+                    mode = 'lines+markers',
+                    name = cityA))
+    fig3.add_trace(go.Scatter(x = np.arange(1, 13), y = getdata(cityB_data, 2)['Mean'],
+                    mode = 'lines+markers',
+                    name = cityB_result))  
+    fig3.update_layout(
+        {'title': 'Max Temperature (°C)',
+         'xaxis': {'title': 'Month'},
+         'yaxis': {'title': 'Temperature (°C)'}}
+    )    
     
-#     # Min temperature
-#     fig4 = go.Figure()
-#     fig4.add_trace(go.Scatter(x = np.arange(1, 13), y = getdata(cityA_data, 3)['Mean'],
-#                     mode = 'lines+markers',
-#                     name = cityA))
-#     fig4.add_trace(go.Scatter(x = np.arange(1, 13), y = getdata(cityB_data, 3)['Mean'],
-#                     mode = 'lines+markers',
-#                     name = cityB_result))  
-#     fig4.update_layout(
-#         {'title': 'Min Temperature (°C)',
-#          'xaxis': {'title': 'Month'},
-#          'yaxis': {'title': 'Temperature (°C)'}}
-#     )    
+    # Min temperature
+    fig4 = go.Figure()
+    fig4.add_trace(go.Scatter(x = np.arange(1, 13), y = getdata(cityA_data, 3)['Mean'],
+                    mode = 'lines+markers',
+                    name = cityA))
+    fig4.add_trace(go.Scatter(x = np.arange(1, 13), y = getdata(cityB_data, 3)['Mean'],
+                    mode = 'lines+markers',
+                    name = cityB_result))  
+    fig4.update_layout(
+        {'title': 'Min Temperature (°C)',
+         'xaxis': {'title': 'Month'},
+         'yaxis': {'title': 'Temperature (°C)'}}
+    )    
     
-#     # Precipitation
-#     fig5 = go.Figure()
-#     fig5.add_trace(go.Scatter(x = np.arange(1, 13), y = getdata(cityA_data, 6)['Mean'],
-#                     mode = 'lines+markers',
-#                     name = cityA))
-#     fig5.add_trace(go.Scatter(x = np.arange(1, 13), y = getdata(cityB_data, 6)['Mean'],
-#                     mode = 'lines+markers',
-#                     name = cityB_result))  
-#     fig5.update_layout(
-#         {'title': 'Precipitation (mm)',
-#          'xaxis': {'title': 'Month'},
-#          'yaxis': {'title': 'Precipitation (mm)'}}
-#     )     
+    # Precipitation
+    fig5 = go.Figure()
+    fig5.add_trace(go.Scatter(x = np.arange(1, 13), y = getdata(cityA_data, 6)['Mean'],
+                    mode = 'lines+markers',
+                    name = cityA))
+    fig5.add_trace(go.Scatter(x = np.arange(1, 13), y = getdata(cityB_data, 6)['Mean'],
+                    mode = 'lines+markers',
+                    name = cityB_result))  
+    fig5.update_layout(
+        {'title': 'Precipitation (mm)',
+         'xaxis': {'title': 'Month'},
+         'yaxis': {'title': 'Precipitation (mm)'}}
+    )     
     
-#     # Days of precipitation
-#     fig6 = go.Figure()
-#     fig6.add_trace(go.Scatter(x = np.arange(1, 13), y = getdata(cityA_data, 7)['Mean'],
-#                     mode = 'lines+markers',
-#                     name = cityA))
-#     fig6.add_trace(go.Scatter(x = np.arange(1, 13), y = getdata(cityB_data, 7)['Mean'],
-#                     mode = 'lines+markers',
-#                     name = cityB_result))  
-#     fig6.update_layout(
-#         {'title': 'Days of precipitation > 1mm',
-#          'xaxis': {'title': 'Month'},
-#          'yaxis': {'title': 'Days'}}
-#     )        
+    # Days of precipitation
+    fig6 = go.Figure()
+    fig6.add_trace(go.Scatter(x = np.arange(1, 13), y = getdata(cityA_data, 7)['Mean'],
+                    mode = 'lines+markers',
+                    name = cityA))
+    fig6.add_trace(go.Scatter(x = np.arange(1, 13), y = getdata(cityB_data, 7)['Mean'],
+                    mode = 'lines+markers',
+                    name = cityB_result))  
+    fig6.update_layout(
+        {'title': 'Days of precipitation > 1mm',
+         'xaxis': {'title': 'Month'},
+         'yaxis': {'title': 'Days'}}
+    )        
     
    
-#     # Days of snow
-#     fig7 = go.Figure()
-#     fig7.add_trace(go.Scatter(x = np.arange(1, 13), y = getdata(cityA_data, 9)['Mean'],
-#                     mode = 'lines+markers',
-#                     name = cityA))
-#     fig7.add_trace(go.Scatter(x = np.arange(1, 13), y = getdata(cityB_data, 9)['Mean'],
-#                     mode = 'lines+markers',
-#                     name = cityB_result))  
-#     fig7.update_layout(
-#         {'title': 'Days of snow',
-#          'xaxis': {'title': 'Month'},
-#          'yaxis': {'title': 'Days'}}
-#     )        
+    # Days of snow
+    fig7 = go.Figure()
+    fig7.add_trace(go.Scatter(x = np.arange(1, 13), y = getdata(cityA_data, 9)['Mean'],
+                    mode = 'lines+markers',
+                    name = cityA))
+    fig7.add_trace(go.Scatter(x = np.arange(1, 13), y = getdata(cityB_data, 9)['Mean'],
+                    mode = 'lines+markers',
+                    name = cityB_result))  
+    fig7.update_layout(
+        {'title': 'Days of snow',
+         'xaxis': {'title': 'Month'},
+         'yaxis': {'title': 'Days'}}
+    )        
     
 #     # Days of storm
 #     fig8 = go.Figure()
@@ -478,7 +478,7 @@ def update_output2(n_clicks, cityA_input):
 #          'yaxis': {'title': 'Days'}}
 #     )      
     
-    return result, fig, # fig2, fig3, fig4, fig5, fig6, fig7#, fig8, fig9, fig10
+    return result, fig,  fig2, fig3, fig4, fig5, fig6, fig7#, fig8, fig9, fig10
 
 
 if __name__ == '__main__':
