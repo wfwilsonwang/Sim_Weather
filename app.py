@@ -14,6 +14,7 @@ from geopy.geocoders import Nominatim
 from geopy.distance import geodesic
 from dash.exceptions import PreventUpdate
 import xlrd
+import time
 
 All_coord = pd.read_csv('All_coord.csv')
 cities_list = list(pd.read_csv('cities_CNUS.csv')['cities'])
