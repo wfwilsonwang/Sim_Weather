@@ -15,17 +15,8 @@ from geopy.distance import geodesic
 from dash.exceptions import PreventUpdate
 import xlrd
 
-CN_cities_list = pd.ExcelFile('CN_weather2.xlsx').sheet_names
-US_cities_list = pd.ExcelFile('US_weather3.xlsx').sheet_names
-cities_list = CN_cities_list + US_cities_list
-
-US_coord = pd.read_csv('US_cities_state.csv')
-CN_coord = pd.read_csv('CN_cities.csv')
-
 All_coord = pd.read_csv('All_coord.csv')
-
-CN_data = pd.read_excel('CN_weather2.xlsx', sheet_name = None)  # Ordered dictionary
-US_data = pd.read_excel('US_weather3.xlsx', sheet_name = None)
+cities_list = list(pd.read_csv('cities_CNUS.csv')['cities'])
 
 # def get_distance(A, B):
 #     geolocator = Nominatim(user_agent="Get coordinates")
