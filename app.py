@@ -17,8 +17,12 @@ import xlrd
 
 All_coord = pd.read_csv('All_coord.csv')
 cities_list = list(pd.read_csv('cities_CNUS.csv')['cities'])
+
 CN_cities_list = cities_list[0:114]
 US_cities_list = cities_list[114:203]
+
+CN_data = pd.read_excel('CN_weather2.xlsx', sheet_name = None)  # Ordered dictionary
+US_data = pd.read_excel('US_weather3.xlsx', sheet_name = None)
 
 # def get_distance(A, B):
 #     geolocator = Nominatim(user_agent="Get coordinates")
