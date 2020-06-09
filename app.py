@@ -14,7 +14,9 @@ from geopy.geocoders import Nominatim
 from geopy.distance import geodesic
 from dash.exceptions import PreventUpdate
 import xlrd
+import time
 
+t0 = time.time()
 All_coord = pd.read_csv('All_coord.csv')
 cities_list = list(pd.read_csv('cities_CNUS.csv')['cities'])
 
@@ -23,6 +25,8 @@ US_cities_list = cities_list[114:203]
 
 CN_data = pd.read_excel('CN_weather2.xlsx', sheet_name = None)  # Ordered dictionary
 US_data = pd.read_excel('US_weather3.xlsx', sheet_name = None)
+
+print('Time reading data: ', time.time() - t0)
 
 # def get_distance(A, B):
 #     geolocator = Nominatim(user_agent="Get coordinates")
@@ -89,6 +93,7 @@ def findcity(cityA_input):
         city_data = US_data[cityA]
     # ------------------------------------------------------------
     #print('Your city A is', cityA, 'in', countryA)
+    print('Time finding city: ', time.time() - t0)
     return city_data, countryA, min_distance, cityA
 
 
@@ -168,6 +173,7 @@ def normalize_form(similarity_form):
 
     # Sort in ascending order
     similarity_form_normalized = similarity_form_normalized.sort_values(by = ['Total'])
+    print('Time similarity: ', time.time() - t0)
     return similarity_form_normalized
 
 
