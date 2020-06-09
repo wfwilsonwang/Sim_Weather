@@ -17,6 +17,8 @@ import xlrd
 
 All_coord = pd.read_csv('All_coord.csv')
 cities_list = list(pd.read_csv('cities_CNUS.csv')['cities'])
+CN_cities_list = cities_list[0:114]
+US_cities_list = cities_list[114:203]
 
 # def get_distance(A, B):
 #     geolocator = Nominatim(user_agent="Get coordinates")
