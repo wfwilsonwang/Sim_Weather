@@ -14,19 +14,17 @@ from geopy.geocoders import Nominatim
 from geopy.distance import geodesic
 from dash.exceptions import PreventUpdate
 import xlrd
-import time
 
-t0 = time.time()
 All_coord = pd.read_csv('All_coord.csv')
 cities_list = list(pd.read_csv('cities_CNUS.csv')['cities'])
-
 CN_cities_list = cities_list[0:114]
 US_cities_list = cities_list[114:203]
 
 CN_data = pd.read_excel('CN_weather2.xlsx', sheet_name = None)  # Ordered dictionary
 US_data = pd.read_excel('US_weather3.xlsx', sheet_name = None)
 
-print('Time reading data: ', time.time() - t0)
+CN_US_result = pd.read_csv('CN_US_sim_result.csv')
+US_CN_result = pd.read_csv('US_CN_sim_result.csv')
 
 # def get_distance(A, B):
 #     geolocator = Nominatim(user_agent="Get coordinates")
@@ -68,7 +66,7 @@ def find_nearest(A):
 def findcity(cityA_input):
     if any(cityA_input in s for s in CN_cities_list):
         cityA = [s for s in CN_cities_list if cityA_input in s][0]
-        countryA = 'India'
+        countryA = 'China'
         min_distance = 0
     elif any(cityA_input in s for s in US_cities_list): 
         cityA = [s for s in US_cities_list if cityA_input in s][0]
@@ -93,7 +91,7 @@ def findcity(cityA_input):
         city_data = US_data[cityA]
     # ------------------------------------------------------------
     #print('Your city A is', cityA, 'in', countryA)
-    print('Time finding city: ', time.time() - t0)
+    print("Time elapsed: ", time.time() - t0)
     return city_data, countryA, min_distance, cityA
 
 
@@ -173,7 +171,7 @@ def normalize_form(similarity_form):
 
     # Sort in ascending order
     similarity_form_normalized = similarity_form_normalized.sort_values(by = ['Total'])
-    print('Time similarity: ', time.time() - t0)
+    print("Time elapsed: ", time.time() - t0)
     return similarity_form_normalized
 
 
@@ -184,10 +182,10 @@ def normalize_form(similarity_form):
 
 
 
-rblue = '#4169e1'
-mapbox_access_token = 'pk.eyJ1Ijoid2Z3aWxzb253YW5nIiwiYSI6ImNrYjQwcXJzeDBxNnUyeWxtZnlkaDF1OHoifQ.I6_PcA8uuq7kMuDh57hYJg'
 app = dash.Dash()
 server = app.server
+
+t0 = time.time()
 
 app.layout = html.Div([
     # Title 
@@ -270,7 +268,7 @@ app.layout = html.Div([
 #                   style = {'width': '33%',  'display': 'inline-block'}),
 #         dcc.Graph(id = 'days-frost',  # fig10
 #                   style = {'width': '33%',  'display': 'inline-block'}),    
-     ])
+    ])
 ])
 
 @app.callback(
@@ -302,18 +300,25 @@ def update_output2(n_clicks, cityA_input):
     
     # Result city
     cityA = str(cityA_input)
-    if cityA in cities_list:
-        cityA_data, countryA, _, _ = findcity(cityA)
-        similarity_form_normalized = normalize_form(similarityform(cityA_data, countryA))
-        cityB_result = similarity_form_normalized.index[0]
-        result = 'City with the most similar weather with {} in {} is {}'.format(cityA_input, countryA, cityB_result)
+    if cityA in CN_cities_list:
+        cityA_data = CN_data[cityA]
+        cityB_result = CN_US_result[CN_US_result['CN_cities'].str.contains(cityA)].iloc[0,1]
+        result = 'City with the most similar weather with {} is {}'.format(cityA_input, cityB_result)
+    
+    elif cityA in US_cities_list:
+        cityA_data = US_data[cityA]
+        cityB_result = US_CN_result[US_CN_result['US_cities'].str.contains(cityA)].iloc[0,1]
+        result = 'City with the most similar weather with {} is {}'.format(cityA_input, cityB_result)
         
     else: 
         cityA_data, countryA, min_distance, city_near = findcity(cityA)
-        similarity_form_normalized = normalize_form(similarityform(cityA_data, countryA))
-        cityB_result = similarity_form_normalized.index[0]
+        if city_near in CN_cities_list:
+            cityB_result = CN_US_result[CN_US_result['CN_cities'].str.contains(city_near)].iloc[0,1]
+        elif city_near in US_cities_list:
+            cityB_result = US_CN_result[US_CN_result['US_cities'].str.contains(city_near)].iloc[0,1]
+
         result = 'Sorry your input city is not in the database but the nearest city is {} in {} miles away.\n \
-                  City with the most similar weather with {} in {} is {}'.format(city_near, min_distance, city_near, countryA, cityB_result)
+                  City with the most similar weather with {} is {}'.format(city_near, min_distance, city_near, cityB_result)
     
     # Map 
 #     if countryA == 'US':
@@ -479,7 +484,7 @@ def update_output2(n_clicks, cityA_input):
 #          'yaxis': {'title': 'Days'}}
 #     )      
     
-    return result, fig,  fig2, fig3, fig4, fig5, fig6, fig7#, fig8, fig9, fig10
+    return result, fig, fig2, fig3, fig4, fig5, fig6, fig7#, fig8, fig9, fig10
 
 
 if __name__ == '__main__':
