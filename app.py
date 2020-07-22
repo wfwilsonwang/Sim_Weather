@@ -302,6 +302,14 @@ def update_output2(n_clicks, cityA_input):
     
     # Result city
     cityA = str(cityA_input)
+    cityA = cityA.capitalize()
+    if ',' in cityA:
+        temp = cityA.split(',')[0].strip()
+        if ' ' in temp:
+            cityA = temp.split(' ')[0].capitalize() + ' ' + temp.split(' ')[1].capitalize() + ', ' + cityA.split(',')[1].strip().upper()
+        else: 
+            cityA = cityA.split(',')[0].strip() + ', ' + cityA.split(',')[1].strip().upper()
+    
     if cityA in CN_cities_list:
         cityA_data = CN_data[cityA]
         cityB_result = CN_US_result[CN_US_result['CN_cities'].str.contains(cityA)].iloc[0,1]
